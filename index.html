@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerador de Documentos - CORREF</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">CORREF • SEPLAG</p>
+        <h1>Gerador de Documentos de Readaptação Funcional</h1>
+        <p>Preencha os dados gerais e gere cada documento separadamente.</p>
+      </div>
+      <div class="badge">DOCX</div>
+    </header>
+
+    <nav class="tabs" aria-label="Abas do gerador">
+      <button class="tab active" data-tab="gerais" type="button">1. Dados gerais</button>
+      <button class="tab" data-tab="portaria" type="button">2. Portaria</button>
+      <button class="tab" data-tab="parecer" type="button">3. Extrato de Parecer</button>
+      <button class="tab" data-tab="ato" type="button">4. Extrato do Ato</button>
+    </nav>
+
+    <section id="tab-gerais" class="panel tab-panel active">
+      <h2>Dados gerais</h2>
+      <p class="subtitle">Esses campos são reaproveitados nos documentos.</p>
+      <div class="grid2">
+        <label>Nome completo
+          <input id="nome_servidor" placeholder="Ex.: João da Silva">
+        </label>
+        <label>Matrícula
+          <input id="matricula" placeholder="Ex.: 123456">
+        </label>
+        <label>Cargo
+          <input id="cargo" placeholder="Ex.: Auxiliar de Serviços I">
+        </label>
+        <label>Secretaria de lotação
+          <input id="secretaria" placeholder="Ex.: Secretaria Municipal de Saúde">
+        </label>
+        <label>Nº do protocolo de readaptação
+          <input id="protocolo_readaptacao" placeholder="Ex.: 2026/000123">
+        </label>
+        <label>Tipo de readaptação
+          <select id="tipo_readaptacao">
+            <option value="temporaria">Temporária</option>
+            <option value="definitiva">Definitiva</option>
+          </select>
+        </label>
+      </div>
+      <div class="preview-line">
+        <span>Iniciais: <strong id="prev_iniciais">—</strong></span>
+        <span>Matrícula mascarada: <strong id="prev_matricula">—</strong></span>
+      </div>
+    </section>
+
+    <section id="tab-portaria" class="panel tab-panel">
+      <div class="panel-head">
+        <div>
+          <h2>Portaria</h2>
+          <p class="subtitle">Gera apenas a portaria selecionada.</p>
+        </div>
+        <button id="btn_portaria" type="button">Gerar Portaria</button>
+      </div>
+
+      <div class="grid2">
+        <label>Tipo da portaria
+          <select id="tipo_portaria">
+            <option value="manutencao">Manutenção no cargo de origem</option>
+            <option value="mudanca">Mudança de cargo</option>
+          </select>
+        </label>
+        <label>Sexo do servidor
+          <select id="sexo">
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+          </select>
+        </label>
+        <label>Nº da portaria
+          <input id="numero_portaria" placeholder="Ex.: 123/2026">
+        </label>
+        <label id="prazo_box">Prazo por extenso
+          <input id="tempo_por_extenso" placeholder="Ex.: 180 dias (cento e oitenta dias)">
+        </label>
+        <label>Cargo a ser readaptado
+          <input id="cargo_readaptado" placeholder="Ex.: Origem ou cargo de destino">
+        </label>
+      </div>
+
+      <label class="full mt">Restrições
+        <textarea id="restricoes" rows="8" placeholder="Digite as restrições. Ex.: levantar cargas superiores a 10 kg; realizar alternância postural constante."></textarea>
+      </label>
+      <div class="hint">O sistema monta automaticamente “Fica expressamente vedado ao servidor/à servidora...” conforme o sexo.</div>
+    </section>
+
+    <section id="tab-parecer" class="panel tab-panel">
+      <div class="panel-head">
+        <div>
+          <h2>Extrato de Parecer Técnico</h2>
+          <p class="subtitle">Gera apenas o extrato de parecer.</p>
+        </div>
+        <button id="btn_parecer" type="button">Gerar Extrato de Parecer</button>
+      </div>
+
+      <div class="grid2">
+        <label>Nº do parecer técnico/ano
+          <input id="parecer_tecnico" placeholder="Ex.: 045/2026">
+        </label>
+        <label>Data do relatório médico
+          <input id="data_relatorio" placeholder="Ex.: 25/06/2026">
+        </label>
+        <label>Cargo a ser readaptado
+          <input id="cargo_readaptado_parecer" placeholder="Ex.: Origem ou cargo de destino">
+        </label>
+        <label id="prazo_parecer_box">Prazo do parecer
+          <input id="tempo_parecer" placeholder="Ex.: 180 dias (cento e oitenta dias)">
+        </label>
+      </div>
+      <div class="hint">Se a readaptação for definitiva, o sistema remove o prazo e o trecho de reavaliação do parecer.</div>
+    </section>
+
+    <section id="tab-ato" class="panel tab-panel">
+      <div class="panel-head">
+        <div>
+          <h2>Extrato do Ato Decisório</h2>
+          <p class="subtitle">Gera apenas o extrato do ato decisório.</p>
+        </div>
+        <button id="btn_ato" type="button">Gerar Extrato do Ato</button>
+      </div>
+
+      <label class="full">Determinação do ato decisório
+        <textarea id="determinacao" rows="14" placeholder="Digite a determinação completa do ato decisório..."></textarea>
+      </label>
+    </section>
+
+    <section class="actions">
+      <button id="btn_limpar" type="button" class="secondary">Limpar dados</button>
+      <span id="status"></span>
+    </section>
+  </main>
+
+  <script src="libs/jszip.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
