@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerador de Documentos - CORREF</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">SEPLAG / CORREF</p>
+      <h1>Gerador de Documentos de Readaptação Funcional</h1>
+      <p class="subtitle">Preencha os dados uma vez e gere portarias e extratos automaticamente.</p>
+    </div>
+    <div class="badge">Prefeitura de Divinópolis</div>
+  </header>
+
+  <main class="layout">
+    <form id="formGerador" class="card">
+      <section>
+        <h2>1. Documento</h2>
+        <div class="grid two">
+          <label>Documento a gerar
+            <select id="documento" name="documento">
+              <option value="portaria_manutencao">Portaria - Manutenção de cargo</option>
+              <option value="portaria_mudanca">Portaria - Mudança de cargo</option>
+              <option value="extrato_parecer">Extrato de Parecer Técnico</option>
+              <option value="extrato_ato">Extrato do Ato Decisório</option>
+              <option value="todos">Gerar portaria + extratos</option>
+            </select>
+          </label>
+          <label>Sexo para a portaria
+            <select id="sexo" name="sexo">
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Dados do servidor</h2>
+        <div class="grid two">
+          <label>Nome completo
+            <input id="nome_servidor" name="nome_servidor" placeholder="Ex.: João da Silva" autocomplete="off">
+          </label>
+          <label>Matrícula
+            <input id="matricula" name="matricula" placeholder="Ex.: 123456" autocomplete="off">
+          </label>
+          <label>Cargo atual / cargo de origem
+            <input id="cargo" name="cargo" placeholder="Ex.: Auxiliar de Serviços I" autocomplete="off">
+          </label>
+          <label>Cargo a ser readaptado
+            <input id="cargo_readaptado" name="cargo_readaptado" placeholder="Ex.: Auxiliar de Serviços I" autocomplete="off">
+          </label>
+          <label>Secretaria de lotação
+            <input id="secretaria" name="secretaria" placeholder="Ex.: Secretaria Municipal de Saúde" autocomplete="off">
+          </label>
+          <label>Iniciais geradas
+            <input id="iniciais_preview" disabled placeholder="Gerado automaticamente">
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Dados do processo</h2>
+        <div class="grid two">
+          <label>Nº do protocolo de readaptação
+            <input id="protocolo_readaptacao" name="protocolo_readaptacao" placeholder="Ex.: 2026/000123" autocomplete="off">
+          </label>
+          <label>Nº da portaria
+            <input id="numero_portaria" name="numero_portaria" placeholder="Ex.: 123/2026" autocomplete="off">
+          </label>
+          <label>Parecer técnico
+            <input id="parecer_tecnico" name="parecer_tecnico" placeholder="Ex.: 045/2026" autocomplete="off">
+          </label>
+          <label>Data do relatório médico
+            <input id="data_relatorio" name="data_relatorio" placeholder="Ex.: 25/06/2026" autocomplete="off">
+          </label>
+          <label>Tipo de readaptação
+            <select id="tipo_readaptacao" name="tipo_readaptacao">
+              <option value="temporaria">Temporária</option>
+              <option value="definitiva">Definitiva</option>
+            </select>
+          </label>
+          <label id="grupoPrazo">Prazo / tempo por extenso
+            <input id="tempo_por_extenso" name="tempo_por_extenso" placeholder="Ex.: 180 dias (cento e oitenta dias)" autocomplete="off">
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Textos grandes</h2>
+        <label>Restrições
+          <textarea id="restricoes" name="restricoes" rows="7" placeholder="Digite as restrições. Se deixar vazio, será usado um texto padrão."></textarea>
+        </label>
+        <label>Determinação do ato decisório
+          <textarea id="determinacao" name="determinacao" rows="10" placeholder="Digite a determinação completa do ato decisório."></textarea>
+        </label>
+      </section>
+
+      <div class="actions">
+        <button type="button" id="btnGerar">Gerar DOCX</button>
+        <button type="button" id="btnLimpar" class="secondary">Limpar dados</button>
+      </div>
+    </form>
+
+    <aside class="card help">
+      <h2>Regras aplicadas</h2>
+      <ul>
+        <li>Nome completo gera as iniciais automaticamente.</li>
+        <li>Matrícula também gera matrícula mascarada para o extrato.</li>
+        <li>O campo Cargo preenche cargo/origem e cargo do ato decisório.</li>
+        <li>Se a readaptação for definitiva, o prazo e o trecho de reavaliação são removidos do parecer.</li>
+        <li>Se for temporária, o trecho de reavaliação entra com vírgula após “Decreto 17.000”.</li>
+        <li>O campo Determinação é grande para textos longos do ato decisório.</li>
+      </ul>
+      <p class="notice"><strong>Observação:</strong> para funcionar no GitHub Pages, mantenha a pasta <code>modelos</code> no mesmo nível do <code>index.html</code>.</p>
+      <div id="status" class="status">Pronto para gerar.</div>
+    </aside>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzip/3.1.7/pizzip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.47.4/docxtemplater.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
